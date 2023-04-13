@@ -100,7 +100,10 @@ export default class BakerService {
   // ////////////////////////////
   // Baker's Product////////////
 
-  public async getProducts(bakers: BakerType[], type?: 'Sweets' | 'Salty') {
+  public async getBakersProducts(
+    bakers: BakerType[],
+    type?: 'Sweets' | 'Salty'
+  ): Promise<Product[]> {
     let products = [] as Product[];
     // we access in order: allBakers' Products -> Baker's Products -> individual Product in Product[]
     const bakersProducts = bakers.map((baker) => baker.products);
@@ -121,7 +124,10 @@ export default class BakerService {
     return products;
   }
 
-  public async getBakerProducts(baker: BakerType, type?: 'Sweets' | 'Salty') {
+  public async getBakerProducts(
+    baker: BakerType,
+    type?: 'Sweets' | 'Salty'
+  ): Promise<Product[]> {
     let products = baker.products as Product[];
     // To filter by type if provided in req.body
     if (type) {
@@ -129,5 +135,39 @@ export default class BakerService {
       return filteredProducts;
     }
     return products;
+  }
+
+  public async addProduct(id: string, productData: any) {
+    const baker = await Baker.findById(id, { products: 1 });
+    if (baker) {
+      const products = baker.products as Product[];
+      const product = { baker: baker._id, ...productData } as Product;
+      products.push(product);
+
+      baker
+        .updateOne({ $set: { products } })
+        .then((updatedProducts: Product[]) => {
+          return updatedProducts;
+        })
+        .catch((err) => console.error(err));
+    }
+  }
+
+  public async editProduct(id: string, productIndex: number, productData: any) {
+    const baker = await Baker.findById(id, { products: 1 });
+
+    if (baker && productIndex > -1) {
+      const products = baker.products as Product[];
+      products[productIndex] = productData;
+
+      baker
+        .updateOne({
+          $set: { products },
+        })
+        .then((updatedProducts: Product[]) => {
+          return updatedProducts;
+        })
+        .catch((err) => console.error(err));
+    }
   }
 }

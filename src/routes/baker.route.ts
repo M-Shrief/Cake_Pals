@@ -21,6 +21,8 @@ class BakerRoute implements IRoute {
     // TODO: Caching Middleware
     this.router.get('/bakers/products', this.controller.bakersProducts);
     this.router.get('/baker/:id/products', this.controller.bakerProducts);
+    this.router.post('/baker/:id/product', this.controller.addProduct);
+    this.router.put('/baker/:id/product/:index', this.controller.editProduct);
   }
 }
 

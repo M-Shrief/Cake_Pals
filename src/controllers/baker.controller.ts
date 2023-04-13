@@ -118,7 +118,7 @@ export default class BakerController {
         req.body.location,
         req.body.distance
       );
-      const products = await this.bakerServices.getProducts(
+      const products = await this.bakerServices.getBakersProducts(
         bakers,
         req.body.type
       );
@@ -143,5 +143,38 @@ export default class BakerController {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  public addProduct = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    this.bakerServices
+      .addProduct(req.params.id, req.body)
+      .then((updatedProducts) => {
+        res.status(201).json({
+          success: true,
+          Baker: req.params.id,
+          Products: updatedProducts,
+        });
+      })
+      .catch((err) => console.error(err));
+  };
+
+  public editProduct = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    this.bakerServices
+      .editProduct(req.params.id, Number(req.params.index), req.body)
+      .then((updatedProduct) => {
+        return res.status(201).json({
+          success: true,
+          Products: updatedProduct,
+        });
+      })
+      .catch((err) => console.error(err));
   };
 }
