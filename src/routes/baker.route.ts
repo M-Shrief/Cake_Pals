@@ -14,6 +14,7 @@ class BakerRoute implements IRoute {
   private initializeRoutes() {
     this.router.get('/bakers', this.controller.index);
     this.router.get('/baker/:id', this.controller.indexOne);
+    this.router.post('/baker', this.controller.createBaker);
   }
 }
 

@@ -1,4 +1,11 @@
 import { Location } from '../interfaces/__types__';
+import {
+  comparePassword,
+  createToken,
+  // decodeToken,
+  hashPassword,
+  verifyToken,
+} from '../utils/auth';
 import BakerType from '../interfaces/baker.interface';
 import Baker from '../models/baker';
 
@@ -39,5 +46,24 @@ export default class BakerService {
       collectionTime: 1,
     })) as BakerType;
     return baker;
+  }
+  public async createBaker(bakerData: BakerType): Promise<BakerType | void> {
+    const { firstName, lastName, phone, location, rating, collectionTime } =
+      bakerData;
+    const password = hashPassword(bakerData.password as string);
+    const baker = new Baker({
+      firstName,
+      lastName,
+      phone,
+      password,
+      location,
+      rating,
+      collectionTime,
+    });
+    try {
+      return baker.save();
+    } catch (err) {
+      return console.error(err);
+    }
   }
 }

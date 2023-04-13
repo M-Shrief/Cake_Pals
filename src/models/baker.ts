@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 // Types
-import { Time, Product } from '../interfaces/__types__';
-import BakerType from '../interfaces/Baker.interface';
+import { Time, Location, Product } from '../interfaces/__types__';
+import BakerType from '../interfaces/baker.interface';
 
 const Schema = mongoose.Schema;
 const bakerSchema = new Schema(
@@ -25,10 +25,7 @@ const bakerSchema = new Schema(
       type: String,
       required: true,
     },
-    location: {
-      type: { type: String },
-      coordinates: [Number],
-    },
+    location: {} as Location,
     rating: {
       type: Number,
       required: true,

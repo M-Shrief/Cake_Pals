@@ -1,6 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import BakerService from '../services/baker.service';
-
+import {
+  comparePassword,
+  createToken,
+  decodeToken,
+  hashPassword,
+  verifyToken,
+} from '../utils/auth';
+import BakerType from '../interfaces/baker.interface';
 export default class BakerController {
   public bakerServices: BakerService = new BakerService();
 
@@ -16,5 +23,42 @@ export default class BakerController {
       .getBaker(req.params.id)
       .then((result) => res.status(200).send(result))
       .catch((err) => console.error(err));
+  };
+
+  public createBaker = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const newBaker = (await this.bakerServices.createBaker(
+        req.body
+      )) as BakerType;
+      const accessToken = await createToken({
+        firstName: newBaker.firstName,
+        lastName: newBaker.lastName,
+        rating: newBaker.rating,
+        collectionTime: newBaker.collectionTime,
+      });
+      res
+        .cookie('access-token', accessToken, {
+          maxAge: 60 * 60 * 2, // 2hours
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+        .status(201)
+        .json({
+          decoded: {
+            firstName: newBaker.firstName,
+            lastName: newBaker.lastName,
+            rating: newBaker.rating,
+            collectionTime: newBaker.collectionTime,
+          },
+          accessToken,
+        });
+    } catch (err) {
+      return console.error(err);
+    }
   };
 }
