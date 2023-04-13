@@ -25,21 +25,17 @@ export default class BakerController {
       .catch((err) => console.error(err));
   };
 
-  public createBaker = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
+  public signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const newBaker = (await this.bakerServices.createBaker(
         req.body
       )) as BakerType;
       const accessToken = await createToken({
-        firstName: newBaker.firstName,
-        lastName: newBaker.lastName,
+        Name: `${newBaker.firstName} ${newBaker.lastName}`,
         rating: newBaker.rating,
         collectionTime: newBaker.collectionTime,
       });
+
       res
         .cookie('access-token', accessToken, {
           maxAge: 60 * 60 * 2, // 2hours
@@ -50,8 +46,7 @@ export default class BakerController {
         .status(201)
         .json({
           decoded: {
-            firstName: newBaker.firstName,
-            lastName: newBaker.lastName,
+            Name: `${newBaker.firstName} ${newBaker.lastName}`,
             rating: newBaker.rating,
             collectionTime: newBaker.collectionTime,
           },
@@ -59,6 +54,39 @@ export default class BakerController {
         });
     } catch (err) {
       return console.error(err);
+    }
+  };
+
+  public login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const existingBaker = (await this.bakerServices.login(
+        req.body
+      )) as BakerType;
+
+      const accessToken = await createToken({
+        Name: `${existingBaker.firstName} ${existingBaker.lastName}`,
+        rating: existingBaker.rating,
+        collectionTime: existingBaker.collectionTime,
+      });
+
+      res
+        .cookie('access-token', accessToken, {
+          maxAge: 60 * 60 * 2, // 2hours
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+        .status(200)
+        .json({
+          decoded: {
+            Name: `${existingBaker.firstName} ${existingBaker.lastName}`,
+            rating: existingBaker.rating,
+            collectionTime: existingBaker.collectionTime,
+          },
+          accessToken,
+        });
+    } catch (err) {
+      console.error(err);
     }
   };
 }

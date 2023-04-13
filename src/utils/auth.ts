@@ -21,7 +21,7 @@ export const createToken = async (user: any) => {
     algorithm: 'RS256',
     // issuer: Domain,
   });
-  return { accessToken };
+  return accessToken;
 };
 
 export const decodeToken = (token: string) => {

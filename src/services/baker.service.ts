@@ -66,4 +66,28 @@ export default class BakerService {
       return console.error(err);
     }
   }
+
+  public async login(bakerData: BakerType): Promise<BakerType | void> {
+    const { phone, password } = bakerData;
+
+    try {
+      const existingBaker = await Baker.findOne(
+        { phone },
+        { firstName: 1, lastName: 1, rating: 1, collectionTime: 1, password: 1 }
+      );
+
+      if (!existingBaker) return console.error('Invalid Data');
+
+      const isValid = comparePassword(
+        password as string,
+        existingBaker.password as string
+      );
+
+      if (!isValid) return console.error('Invalid Data');
+
+      return existingBaker;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
