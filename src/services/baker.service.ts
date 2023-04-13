@@ -1,4 +1,4 @@
-import { Location } from '../interfaces/__types__';
+import { Location, Product } from '../interfaces/__types__';
 import {
   comparePassword,
   createToken,
@@ -95,5 +95,39 @@ export default class BakerService {
 
   public async remove(id: string) {
     return Baker.findByIdAndRemove(id);
+  }
+
+  // ////////////////////////////
+  // Baker's Product////////////
+
+  public async getProducts(bakers: BakerType[], type?: 'Sweets' | 'Salty') {
+    let products = [] as Product[];
+    // we access in order: allBakers' Products -> Baker's Products -> individual Product in Product[]
+    const bakersProducts = bakers.map((baker) => baker.products);
+    bakersProducts.forEach((bakerProducts) => {
+      if (bakerProducts.length) {
+        bakerProducts
+          .map((products) => products)
+          .forEach((product) => {
+            products.push(product);
+          });
+      }
+    });
+    // To filter by type if provided in req.body
+    if (type) {
+      let filteredProducts = products.filter((product) => product.type == type);
+      return filteredProducts;
+    }
+    return products;
+  }
+
+  public async getBakerProducts(baker: BakerType, type?: 'Sweets' | 'Salty') {
+    let products = baker.products as Product[];
+    // To filter by type if provided in req.body
+    if (type) {
+      let filteredProducts = products.filter((product) => product.type == type);
+      return filteredProducts;
+    }
+    return products;
   }
 }

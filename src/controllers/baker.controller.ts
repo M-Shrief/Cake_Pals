@@ -105,4 +105,43 @@ export default class BakerController {
       .then(() => res.send('Deleted Successfully'))
       .catch((err) => console.error(err));
   };
+
+  // ////////////////////////////
+  // Baker's Product////////////
+  public bakersProducts = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const bakers = await this.bakerServices.getBakers(
+        req.body.location,
+        req.body.distance
+      );
+      const products = await this.bakerServices.getProducts(
+        bakers,
+        req.body.type
+      );
+      res.status(200).send(products);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  public bakerProducts = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const baker = await this.bakerServices.getBaker(req.params.id);
+      const products = await this.bakerServices.getBakerProducts(
+        baker,
+        req.body.type
+      );
+      res.status(200).send(products);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 }
