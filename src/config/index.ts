@@ -1,7 +1,7 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 config();
 
-export const CREDENTIALS = process.env.CREDENTIALS === "true";
+export const CREDENTIALS = process.env.CREDENTIALS === 'true';
 export const {
   NODE_ENV,
   PORT,
@@ -9,5 +9,6 @@ export const {
   LOG_FORMAT,
   LOG_DIR,
   ORIGIN,
-  DB_URL
+  DB_URL,
+  DB_NAME,
 } = process.env;
