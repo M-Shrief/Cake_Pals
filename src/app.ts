@@ -1,4 +1,7 @@
 import cors from 'cors';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import express, { Application, Request } from 'express';
 import { PORT, DB_URL, DB_NAME } from './config';
 import { IRoute } from './interfaces/route.interface';
@@ -31,7 +34,17 @@ export default class App {
   private initializeMiddlewares(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(cors<Request>());
+    this.app.use(compression());
+    this.app.use(helmet());
+    this.app.use(cookieParser());
+    this.app.use(
+      cors<Request>({
+        origin: 'http://localhost:3000',
+        methods: ['GET'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true,
+      })
+    );
     this.app.use(morganMiddleware);
   }
 
