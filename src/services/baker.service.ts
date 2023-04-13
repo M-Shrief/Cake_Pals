@@ -29,4 +29,15 @@ export default class BakerService {
     }
     return bakers;
   }
+  public async getBaker(id: string): Promise<BakerType> {
+    let baker = (await Baker.findById(id, {
+      firstName: 1,
+      lastName: 1,
+      location: 1,
+      rating: 1,
+      products: 1,
+      collectionTime: 1,
+    })) as BakerType;
+    return baker;
+  }
 }
