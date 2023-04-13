@@ -50,7 +50,7 @@ export default class App {
 
   private initializeRoutes(routes: IRoute[]): void {
     routes.forEach((route) => {
-      this.app.use('/api/v1', route.router);
+      this.app.use('/api', route.router);
     });
   }
 

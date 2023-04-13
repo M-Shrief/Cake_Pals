@@ -1,8 +1,6 @@
-import App from "./app"
-import TestRoute from "./routes/test.route"
+import App from './app';
+import BakerRoute from './routes/baker.route';
 
-const app = new App([
-    new TestRoute()
-])
+const app = new App([new BakerRoute()]);
 
-app.listen()
+app.listen();
