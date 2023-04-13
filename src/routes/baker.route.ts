@@ -16,6 +16,7 @@ class BakerRoute implements IRoute {
     this.router.get('/baker/:id', this.controller.indexOne);
     this.router.post('/baker', this.controller.signup);
     this.router.post('/baker/login', this.controller.login);
+    this.router.delete('/baker/:id', this.controller.destroy);
   }
 }
 

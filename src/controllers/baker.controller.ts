@@ -89,4 +89,20 @@ export default class BakerController {
       console.error(err);
     }
   };
+
+  public logout = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.cookies['access-token']) {
+      res
+        .clearCookie('access-token')
+        .status(200)
+        .json({ message: 'Logged Out!' });
+    }
+  };
+
+  public remove = async (req: Request, res: Response, next: NextFunction) => {
+    this.bakerServices
+      .remove(req.params.id)
+      .then(() => res.send('Deleted Successfully'))
+      .catch((err) => console.error(err));
+  };
 }

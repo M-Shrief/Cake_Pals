@@ -90,4 +90,10 @@ export default class BakerService {
       console.error(err);
     }
   }
+
+  // public async logout(): Promise<void> {}
+
+  public async remove(id: string) {
+    return Baker.findByIdAndRemove(id);
+  }
 }
