@@ -177,4 +177,19 @@ export default class BakerController {
       })
       .catch((err) => console.error(err));
   };
+
+  public removeProduct = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    this.bakerServices
+      .removeProduct(req.params.id, Number(req.params.index))
+      .then(() => {
+        return res
+          .status(201)
+          .json({ Product_Number: req.params.index, state: 'Deleted' });
+      })
+      .catch((err) => console.error(err));
+  };
 }

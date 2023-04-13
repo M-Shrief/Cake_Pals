@@ -170,4 +170,18 @@ export default class BakerService {
         .catch((err) => console.error(err));
     }
   }
+
+  public async removeProduct(id: string, productIndex: number) {
+    const baker = await Baker.findById(id, { products: 1 });
+    if (baker && productIndex > -1) {
+      const products = baker.products as Product[];
+      products.splice(productIndex, 1);
+
+      baker
+        .updateOne({
+          $set: { products },
+        })
+        .catch((err) => console.error(err));
+    }
+  }
 }
