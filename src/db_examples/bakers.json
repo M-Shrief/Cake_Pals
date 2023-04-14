@@ -1,0 +1,392 @@
+[{
+  "_id": {
+    "$oid": "643017e883105ebe556ad147"
+  },
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.856077,
+      40.848447
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1680873448127"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681105333554"
+    }
+  },
+  "__v": 0,
+  "products": [
+    {
+      "baker": {
+        "$oid": "643017e883105ebe556ad147"
+      },
+      "name": "Chocalate Cream Cake",
+      "description": "A Chocalate Cake filled with Cream.",
+      "price": 35,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": {
+        "$oid": "643017e883105ebe556ad147"
+      },
+      "name": "Golden Butter Cake",
+      "description": "A Sweet Golden Cake with Butter.",
+      "price": 20,
+      "bakingTime": {
+        "hour": 45,
+        "minutes": 0
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": "643017e883105ebe556ad147",
+      "name": "Salty Pie",
+      "description": "The best baked Salty Pie.",
+      "price": 15,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 15
+      },
+      "type": "Salty"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6430181d83105ebe556ad149"
+  },
+  "firstName": "2firstName",
+  "lastName": "2lastName",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.98241999999999,
+      40.579505
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1680873501311"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681017634817"
+    }
+  },
+  "__v": 0,
+  "products": [
+    {
+      "baker": "6430181d83105ebe556ad149",
+      "name": "Sweet Potato Pie",
+      "description": "A Pie filled with Sweet Potato, Honey and Cream.",
+      "price": 80,
+      "bakingTime": {
+        "hour": 1,
+        "minutes": 30
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": "6430181d83105ebe556ad149",
+      "name": "Meat Pie",
+      "description": "A hearty meat pie recipe is full of satisfying and crowd-pleasing ingredients.",
+      "price": 70,
+      "type": "Salty",
+      "bakingTime": {
+        "hour": 1,
+        "minutes": 0
+      }
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "6430184783105ebe556ad14d"
+  },
+  "firstName": "first Test",
+  "lastName": "3lastName",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.98513559999999,
+      40.7676919
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1680873543204"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681457408713"
+    }
+  },
+  "__v": 0,
+  "products": [
+    {
+      "baker": "643017e883105ebe556ad147",
+      "name": "Chocalate Cream Cake",
+      "description": "A Chocalate Cake filled with Cream.",
+      "price": 35,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": "643017e883105ebe556ad147",
+      "name": "Brownies Cake",
+      "description": "A Cake covered and filled with Chocalate.",
+      "price": 80,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": "643017e883105ebe556ad147",
+      "name": "Cheese Pie",
+      "description": "A Pie filled with different types of cheese to deliver the best light meal.",
+      "price": 25,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 25
+      },
+      "type": "Salty"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "643675679ba0b6e61ece1c31"
+  },
+  "firstName": "JWT",
+  "lastName": "Test",
+  "phone": "1353-341-5665",
+  "password": "$2b$10$II/BKLsCjVim3cAhMQ6abet/O0WsUnVoKf2I8kr3OHwzdaqirYz6m",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.856077,
+      40.848447
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "products": [
+    {
+      "baker": "643017e883105ebe556ad147",
+      "name": "Cheese Pie",
+      "description": "A Pie filled with different types of cheese to deliver the best light meal.",
+      "price": 25,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 25
+      },
+      "type": "Salty"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681290599926"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681462723434"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6436768a2c2ab1780cd15136"
+  },
+  "firstName": "JWT",
+  "lastName": "Test",
+  "phone": "2451-255-7735",
+  "password": "$2b$10$Yg3zVUHImKTn8cwRyJb9ieUHzD0JKVLiQYV309LeOriOO3OeXk9UO",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.856077,
+      40.848447
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "products": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681290890796"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681290890796"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64367780692cacda747d7f23"
+  },
+  "firstName": "JWT",
+  "lastName": "Test",
+  "phone": "2451-255-7735",
+  "password": "$2b$10$cac9diTEIF0dbi/646Pis./mGUmYh1fEZjXej3zq.Vv391z4/j/o.",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.856077,
+      40.848447
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "products": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681291136621"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681291136621"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6438043baacbdfb7f794ff16"
+  },
+  "firstName": "Express with OOP",
+  "lastName": "Typescripted",
+  "phone": "6666-777-8888",
+  "password": "$2b$10$EfUS57V0c3QgAZRUGf3Q1esNqB8vpgDcWeT.wUckF5QZloh3shUOW",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -73.856077,
+      40.848447
+    ]
+  },
+  "rating": 0,
+  "collectionTime": {
+    "start": {
+      "hour": 11,
+      "minutes": 0
+    },
+    "end": {
+      "hour": 21,
+      "minutes": 30
+    }
+  },
+  "products": [
+    {
+      "name": "Brownies Cake with Cream",
+      "description": "A Brownies cake  filled with Cream.",
+      "price": 80,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": {
+        "$oid": "6438043baacbdfb7f794ff16"
+      },
+      "name": "Brownies Cake with Cream",
+      "description": "A Brownies cake  filled with Cream.",
+      "price": 80,
+      "bakingTime": {
+        "hour": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681392699541"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681405849164"
+    }
+  },
+  "__v": 0
+}]
