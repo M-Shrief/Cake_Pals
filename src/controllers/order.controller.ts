@@ -6,11 +6,38 @@ import OrderService from '../services/order.service';
 import OrderType from '../interfaces/order.interface';
 
 export default class OrderController {
-  private OrderService: OrderService = new OrderService();
+  private orderService: OrderService = new OrderService();
 
   public index = (req: Request, res: Response, next: NextFunction) => {
-    this.OrderService.getOrders()
+    this.orderService
+      .getOrders()
       .then((result) => res.status(200).send(result))
+      .catch((err) => logger.error(err));
+  };
+
+  public indexOne = (req: Request, res: Response, next: NextFunction) => {
+    this.orderService
+      .getOrder(req.params.id)
+      .then((result) => res.status(200).send(result))
+      .catch((err) => logger.error(err));
+  };
+
+  public getBakerOrders = (req: Request, res: Response, next: NextFunction) => {
+    this.orderService
+      .getBakerOrders(req.params.baker)
+      .then((result) => res.status(200).send(result))
+      .catch((err) => logger.error(err));
+  };
+
+  public createOrder = (req: Request, res: Response, next: NextFunction) => {
+    this.orderService
+      .createOrder(req.body)
+      .then((newOrder) => {
+        return res.status(201).json({
+          success: true,
+          Order: newOrder,
+        });
+      })
       .catch((err) => logger.error(err));
   };
 }
