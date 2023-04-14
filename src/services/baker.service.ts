@@ -62,7 +62,7 @@ export default class BakerService {
 
       return baker.save();
     } catch (err) {
-      return console.error(err);
+      logger.error(err);
     }
   }
 
@@ -86,7 +86,7 @@ export default class BakerService {
 
       return existingBaker;
     } catch (err) {
-      console.error(err);
+      logger.error(err);
     }
   }
 
@@ -162,7 +162,7 @@ export default class BakerService {
         .then((updatedProducts: Product[]) => {
           return updatedProducts;
         })
-        .catch((err) => console.error(err));
+        .catch((err) => logger.error(err));
     }
   }
 
@@ -180,7 +180,7 @@ export default class BakerService {
         .then((updatedProducts: Product[]) => {
           return updatedProducts;
         })
-        .catch((err) => console.error(err));
+        .catch((err) => logger.error(err));
     }
   }
 
@@ -194,7 +194,7 @@ export default class BakerService {
         .updateOne({
           $set: { products },
         })
-        .catch((err) => console.error(err));
+        .catch((err) => logger.error(err));
     }
   }
 }

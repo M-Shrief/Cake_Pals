@@ -12,14 +12,14 @@ export default class BakerController {
     this.bakerServices
       .getBakers(req.body.location, req.body.distance)
       .then((result) => res.status(200).send(result))
-      .catch((err) => console.error(err));
+      .catch((err) => logger.error(err));
   };
 
   public indexOne = (req: Request, res: Response, next: NextFunction) => {
     this.bakerServices
       .getBaker(req.params.id)
       .then((result) => res.status(200).send(result))
-      .catch((err) => console.error(err));
+      .catch((err) => logger.error(err));
   };
 
   public signup = async (req: Request, res: Response, next: NextFunction) => {
@@ -50,7 +50,7 @@ export default class BakerController {
           accessToken,
         });
     } catch (err) {
-      return console.error(err);
+      return logger.error(err);
     }
   };
 
@@ -83,7 +83,7 @@ export default class BakerController {
           accessToken,
         });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
     }
   };
 
@@ -112,7 +112,7 @@ export default class BakerController {
     this.bakerServices
       .remove(req.params.id)
       .then(() => res.send('Deleted Successfully'))
-      .catch((err) => console.error(err));
+      .catch((err) => logger.error(err));
   };
 
   // ////////////////////////////
@@ -133,7 +133,7 @@ export default class BakerController {
       );
       res.status(200).send(products);
     } catch (err) {
-      console.error(err);
+      logger.error(err);
     }
   };
 
@@ -150,7 +150,7 @@ export default class BakerController {
       );
       res.status(200).send(products);
     } catch (err) {
-      console.error(err);
+      logger.error(err);
     }
   };
 
@@ -168,7 +168,7 @@ export default class BakerController {
           Products: updatedProducts,
         });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => logger.error(err));
   };
 
   public editProduct = async (
@@ -184,7 +184,7 @@ export default class BakerController {
           Products: updatedProduct,
         });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => logger.error(err));
   };
 
   public removeProduct = async (
@@ -199,6 +199,6 @@ export default class BakerController {
           .status(201)
           .json({ Product_Number: req.params.index, state: 'Deleted' });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => logger.error(err));
   };
 }

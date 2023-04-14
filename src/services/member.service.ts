@@ -56,7 +56,7 @@ export default class MemberService {
 
       return existingMember;
     } catch (err) {
-      console.error(err);
+      logger.error(err);
     }
   }
 
