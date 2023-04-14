@@ -8,7 +8,7 @@ import BakerService from '../services/baker.service';
 import MemberType from '../interfaces/member.interface';
 
 export default class MemberController {
-  public memberService = new MemberService();
+  private memberService = new MemberService();
   private bakerService = new BakerService();
 
   public index = (req: Request, res: Response, next: NextFunction) => {

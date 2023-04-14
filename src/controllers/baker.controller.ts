@@ -6,7 +6,7 @@ import BakerService from '../services/baker.service';
 // Types
 import BakerType from '../interfaces/baker.interface';
 export default class BakerController {
-  public bakerServices: BakerService = new BakerService();
+  private bakerServices: BakerService = new BakerService();
 
   public index = (req: Request, res: Response, next: NextFunction) => {
     this.bakerServices
