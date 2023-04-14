@@ -1,9 +1,9 @@
 import { comparePassword, hashPassword } from '../utils/auth';
+import { logger } from '../utils/logger';
 // Model
 import Member from '../models/member.model';
 // Types
 import MemberType from '../interfaces/member.interface';
-import { logger } from '../utils/logger';
 
 export default class MemberService {
   public async getMembers(): Promise<MemberType[]> {

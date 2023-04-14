@@ -30,3 +30,10 @@ export interface Product {
   bakingTime: Time;
   price: Number;
 }
+
+export interface Person {
+  firstName: String;
+  lastName: String;
+  phone: String;
+  location: Location;
+}

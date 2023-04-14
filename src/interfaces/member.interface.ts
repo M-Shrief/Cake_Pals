@@ -1,9 +1,5 @@
-import { Location } from './__types__';
+import { Location, Person } from './__types__';
 
-export default interface MemberType {
-  firstName: String;
-  lastName: String;
-  phone: String;
+export default interface MemberType extends Person {
   password: String;
-  location: Location;
 }
