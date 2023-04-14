@@ -109,4 +109,23 @@ export default class MemberController {
         .json({ message: 'Logged Out!' });
     }
   };
+
+  public update = async (req: Request, res: Response, next: NextFunction) => {
+    this.memberService
+      .update(req.params.id, req.body)
+      .then((updatedMember) => {
+        return res.status(201).json({
+          success: true,
+          Member: updatedMember,
+        });
+      })
+      .catch((err) => logger.error(err));
+  };
+
+  public remove = (req: Request, res: Response, next: NextFunction) => {
+    this.memberService
+      .remove(req.params.id)
+      .then(() => res.send('Deleted Successfully'))
+      .catch((err) => logger.error(err));
+  };
 }

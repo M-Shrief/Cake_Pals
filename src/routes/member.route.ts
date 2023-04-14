@@ -16,6 +16,8 @@ class MemberRoute implements IRoute {
     this.router.post('/member/', this.controller.signup);
     this.router.post('/member/login', this.controller.login);
     this.router.post('/member/logout', this.controller.logout);
+    this.router.put('/member/:id', this.controller.update);
+    this.router.delete('/member/:id', this.controller.remove);
   }
 }
 

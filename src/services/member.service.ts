@@ -61,4 +61,20 @@ export default class MemberService {
   }
 
   // public async logout(): Promise<void> {}
+
+  public async update(id: string, memberData: MemberType) {
+    const member = await Member.findById(id);
+    if (member) {
+      member
+        .updateOne({ $set: memberData })
+        .then((updatedMember: MemberType) => {
+          return updatedMember;
+        })
+        .catch((err) => logger.error(err));
+    }
+  }
+
+  public async remove(id: string) {
+    return Member.findByIdAndRemove(id);
+  }
 }
