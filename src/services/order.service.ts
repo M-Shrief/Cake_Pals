@@ -70,4 +70,20 @@ export default class OrderService {
     }
     return await order.save();
   }
+
+  public async editOrder(
+    id: string,
+    orderData: OrderType
+  ): Promise<OrderType | void> {
+    const order = await Order.findById(id);
+    if (order) {
+      return order.updateOne({ $set: orderData });
+    } else {
+      logger.error('No Order Found');
+    }
+  }
+
+  public async remove(id: string) {
+    return await Order.findByIdAndRemove(id);
+  }
 }

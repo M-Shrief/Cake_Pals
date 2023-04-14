@@ -107,7 +107,7 @@ export default class BakerService {
   }
 
   public async remove(id: string) {
-    return Baker.findByIdAndRemove(id);
+    return await Baker.findByIdAndRemove(id);
   }
 
   // ////////////////////////////

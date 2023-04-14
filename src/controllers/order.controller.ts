@@ -40,4 +40,27 @@ export default class OrderController {
       })
       .catch((err) => logger.error(err));
   };
+
+  public editOrder = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    this.orderService
+      .editOrder(req.params.id, req.body)
+      .then((updatedOrder) => {
+        return res.status(201).json({
+          success: true,
+          Order: updatedOrder,
+        });
+      })
+      .catch((err) => logger.error(err));
+  };
+
+  public remove = async (req: Request, res: Response, next: NextFunction) => {
+    this.orderService
+      .remove(req.params.id)
+      .then(() => res.send('Deleted Successfully'))
+      .catch((err) => logger.error(err));
+  };
 }
