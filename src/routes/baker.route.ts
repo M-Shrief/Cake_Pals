@@ -16,6 +16,7 @@ class BakerRoute implements IRoute {
     this.router.post('/baker', this.controller.signup);
     this.router.post('/baker/login', this.controller.login);
     this.router.post('/baker/logout', this.controller.logout);
+    this.router.put('/baker/:id', this.controller.update);
     this.router.delete('/baker/:id', this.controller.remove);
     // Products
     // TODO: Caching Middleware

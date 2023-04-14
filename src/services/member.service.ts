@@ -71,6 +71,8 @@ export default class MemberService {
           return updatedMember;
         })
         .catch((err) => logger.error(err));
+    } else {
+      logger.error(`Error: member not found`);
     }
   }
 

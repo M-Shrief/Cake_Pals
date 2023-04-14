@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { logger } from '../utils/logger';
 import { createToken } from '../utils/auth';
 // Services
 import BakerService from '../services/baker.service';
@@ -93,6 +94,18 @@ export default class BakerController {
         .status(200)
         .json({ message: 'Logged Out!' });
     }
+  };
+
+  public update = async (req: Request, res: Response, next: NextFunction) => {
+    this.bakerServices
+      .update(req.params.id, req.body)
+      .then((updatedBaker) => {
+        return res.status(201).json({
+          success: true,
+          Baker: updatedBaker,
+        });
+      })
+      .catch((err) => logger.error(err));
   };
 
   public remove = async (req: Request, res: Response, next: NextFunction) => {

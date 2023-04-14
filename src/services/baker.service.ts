@@ -1,4 +1,5 @@
 import { comparePassword, hashPassword } from '../utils/auth';
+import { logger } from '../utils/logger';
 // Models
 import Baker from '../models/baker.model';
 // Types
@@ -90,6 +91,20 @@ export default class BakerService {
   }
 
   // public async logout(): Promise<void> {}
+
+  public async update(id: string, bakerData: BakerType) {
+    const baker = await Baker.findById(id);
+    if (baker) {
+      baker
+        .updateOne({ $set: bakerData })
+        .then((updatedBaker: BakerType) => {
+          return updatedBaker;
+        })
+        .catch((err) => logger.error(err));
+    } else {
+      logger.error(`Error: member not found`);
+    }
+  }
 
   public async remove(id: string) {
     return Baker.findByIdAndRemove(id);
