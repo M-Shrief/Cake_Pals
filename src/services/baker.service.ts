@@ -28,12 +28,12 @@ export default class BakerService {
             },
           },
         },
-        { firstName: 1, lastName: 1, products: 1, location: 1 }
+        { firstName: 1, products: 1, location: 1, rating: 1 }
       );
     } else {
       bakers = await Baker.find(
         {},
-        { firstName: 1, lastName: 1, products: 1, location: 1 }
+        { firstName: 1, products: 1, location: 1, rating: 1 }
       );
     }
     return bakers;
@@ -50,19 +50,21 @@ export default class BakerService {
     return baker;
   }
   public async createBaker(bakerData: BakerType): Promise<BakerType | void> {
-    const { firstName, lastName, phone, location, rating, collectionTime } =
-      bakerData;
-    const password = hashPassword(bakerData.password as string);
-    const baker = new Baker({
-      firstName,
-      lastName,
-      phone,
-      password,
-      location,
-      rating,
-      collectionTime,
-    });
     try {
+      const { firstName, lastName, phone, location, rating, collectionTime } =
+        bakerData;
+
+      const password = hashPassword(bakerData.password as string);
+      const baker = new Baker({
+        firstName,
+        lastName,
+        phone,
+        password,
+        location,
+        rating,
+        collectionTime,
+      });
+
       return baker.save();
     } catch (err) {
       return console.error(err);
