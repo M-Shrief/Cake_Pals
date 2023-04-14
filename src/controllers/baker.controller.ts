@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import BakerService from '../services/baker.service';
 import {
   comparePassword,
   createToken,
@@ -7,6 +6,9 @@ import {
   hashPassword,
   verifyToken,
 } from '../utils/auth';
+// Services
+import BakerService from '../services/baker.service';
+// Types
 import BakerType from '../interfaces/baker.interface';
 export default class BakerController {
   public bakerServices: BakerService = new BakerService();

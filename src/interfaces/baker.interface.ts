@@ -6,12 +6,6 @@ export default interface BakerType {
   phone: String;
   password: String;
   location: Location;
-  // location: {
-  //   type: {
-  //     type: String;
-  //   };
-  //   coordinates: Number[];
-  // };
   rating: Number;
   collectionTime: {
     start: Time;

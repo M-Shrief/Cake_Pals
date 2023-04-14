@@ -1,4 +1,3 @@
-import { Location, Product } from '../interfaces/__types__';
 import {
   comparePassword,
   createToken,
@@ -6,8 +5,11 @@ import {
   hashPassword,
   verifyToken,
 } from '../utils/auth';
+// Models
+import Baker from '../models/baker.model';
+// Types
+import { Location, Product } from '../interfaces/__types__';
 import BakerType from '../interfaces/baker.interface';
-import Baker from '../models/baker';
 
 export default class BakerService {
   public async getBakers(
