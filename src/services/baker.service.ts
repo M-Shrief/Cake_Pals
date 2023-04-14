@@ -1,10 +1,4 @@
-import {
-  comparePassword,
-  createToken,
-  // decodeToken,
-  hashPassword,
-  verifyToken,
-} from '../utils/auth';
+import { comparePassword, hashPassword } from '../utils/auth';
 // Models
 import Baker from '../models/baker.model';
 // Types

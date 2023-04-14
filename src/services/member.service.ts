@@ -1,4 +1,4 @@
-import { hashPassword } from '../utils/auth';
+import { comparePassword, hashPassword } from '../utils/auth';
 // Model
 import Member from '../models/member.model';
 // Types
@@ -36,4 +36,29 @@ export default class MemberService {
       return logger.error(err);
     }
   }
+
+  public async login(memberData: MemberType) {
+    const { phone, password } = memberData;
+    try {
+      const existingMember = await Member.findOne(
+        { phone },
+        { firstName: 1, lastName: 1, rating: 1, collectionTime: 1, password: 1 }
+      );
+
+      if (!existingMember) return console.error('Invalid Data');
+
+      const isValid = comparePassword(
+        password as string,
+        existingMember.password as string
+      );
+
+      if (!isValid) return console.error('Invalid Data');
+
+      return existingMember;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  // public async logout(): Promise<void> {}
 }

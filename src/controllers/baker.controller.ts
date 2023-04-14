@@ -1,11 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import {
-  comparePassword,
-  createToken,
-  decodeToken,
-  hashPassword,
-  verifyToken,
-} from '../utils/auth';
+import { createToken } from '../utils/auth';
 // Services
 import BakerService from '../services/baker.service';
 // Types

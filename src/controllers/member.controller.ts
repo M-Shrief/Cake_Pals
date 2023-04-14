@@ -55,7 +55,7 @@ export default class MemberController {
       });
       res
         .cookie('access-token', accessToken, {
-          maxAge: 60 * 60 * 2, // 2hours
+          maxAge: 60 * 60 * 8, // 8hours
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
@@ -69,6 +69,44 @@ export default class MemberController {
         });
     } catch (err) {
       return logger.error(err);
+    }
+  };
+
+  public login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const existingMember = (await this.memberService.login(
+        req.body
+      )) as MemberType;
+
+      const accessToken = await createToken({
+        Name: `${existingMember.firstName} ${existingMember.lastName}`,
+      });
+
+      res
+        .cookie('access-token', accessToken, {
+          maxAge: 60 * 60 * 2, //2 hours,
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+        .status(200)
+        .json({
+          decoded: {
+            Name: `${existingMember.firstName} ${existingMember.lastName}`,
+          },
+          accessToken,
+        });
+    } catch (err) {
+      return logger.error(err);
+    }
+  };
+
+  public logout = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.cookies['access-token']) {
+      res
+        .clearCookie('access-token')
+        .status(200)
+        .json({ message: 'Logged Out!' });
     }
   };
 }

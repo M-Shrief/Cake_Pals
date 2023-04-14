@@ -14,6 +14,8 @@ class MemberRoute implements IRoute {
     this.router.get('/member/:id', this.controller.indexOne);
     this.router.get('/member/:id/:distance', this.controller.getNearBakers);
     this.router.post('/member/', this.controller.signup);
+    this.router.post('/member/login', this.controller.login);
+    this.router.post('/member/logout', this.controller.logout);
   }
 }
 
