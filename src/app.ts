@@ -1,14 +1,19 @@
+import express, { Application, Request } from 'express';
+import mongoose from 'mongoose';
+// config
+import { PORT, DB_URL, DB_NAME } from './config';
+// Middlewares
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
-import express, { Application, Request } from 'express';
-import { PORT, DB_URL, DB_NAME } from './config';
-import { IRoute } from './interfaces/route.interface';
 import errorMiddleware from './middlewares/error.middleware';
 import morganMiddleware from './middlewares/morgan.middleware';
+import setCache from './middlewares/cache.middleware';
+// Utils
 import { logger } from './utils/logger';
-import mongoose from 'mongoose';
+// interfaces
+import { IRoute } from './interfaces/route.interface';
 
 export default class App {
   public app: Application;
@@ -37,6 +42,7 @@ export default class App {
     this.app.use(compression());
     this.app.use(helmet());
     this.app.use(cookieParser());
+    this.app.use(setCache);
     this.app.use(
       cors<Request>({
         origin: 'http://localhost:3000',
