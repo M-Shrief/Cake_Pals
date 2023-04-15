@@ -1,27 +1,26 @@
-[{
-  "_id": {
-    "$oid": "6438e57f0a04be34b7f92414"
-  },
-  "firstName": "First",
-  "lastName": "Updated One",
-  "phone": "5735-684-3869",
-  "password": "$2b$10$Q7vC1FXxe1y1wab8naF3ueESzF941OftsBHcE788QkJwSFx7B7UFa",
-  "location": {
-    "type": "Point",
-    "coordinates": [
-      -73.856077,
-      40.848447
-    ]
-  },
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1681450367100"
-    }
-  },
-  "updatedAt": {
-    "$date": {
-      "$numberLong": "1681456362529"
-    }
-  },
-  "__v": 0
-}]
+[
+  {
+    "_id": {
+      "$oid": "6438e57f0a04be34b7f92414"
+    },
+    "firstName": "Member",
+    "lastName": "first",
+    "phone": "5735-684-3869",
+    "password": "$2b$10$Q7vC1FXxe1y1wab8naF3ueESzF941OftsBHcE788QkJwSFx7B7UFa",
+    "location": {
+      "type": "Point",
+      "coordinates": [-73.856077, 40.848447]
+    },
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1681450367100"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1681456362529"
+      }
+    },
+    "__v": 0
+  }
+]
