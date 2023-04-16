@@ -29,6 +29,7 @@ export default class BakerController {
       )) as BakerType;
       const accessToken = await createToken({
         Name: `${newBaker.firstName} ${newBaker.lastName}`,
+        permissions: ['baker:read', 'baker:write'],
         rating: newBaker.rating,
         collectionTime: newBaker.collectionTime,
       });
@@ -51,7 +52,8 @@ export default class BakerController {
           accessToken,
         });
     } catch (err) {
-      return logger.error(err);
+      logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 
@@ -63,6 +65,7 @@ export default class BakerController {
 
       const accessToken = await createToken({
         Name: `${existingBaker.firstName} ${existingBaker.lastName}`,
+        permissions: ['baker:read', 'baker:write'],
         rating: existingBaker.rating,
         collectionTime: existingBaker.collectionTime,
       });
@@ -86,6 +89,7 @@ export default class BakerController {
         });
     } catch (err) {
       logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 
@@ -137,6 +141,7 @@ export default class BakerController {
       res.status(200).send(products);
     } catch (err) {
       logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 
@@ -154,6 +159,7 @@ export default class BakerController {
       res.status(200).send(products);
     } catch (err) {
       logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 

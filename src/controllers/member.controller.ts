@@ -42,6 +42,7 @@ export default class MemberController {
       }
     } catch (err) {
       logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 
@@ -71,7 +72,8 @@ export default class MemberController {
           accessToken,
         });
     } catch (err) {
-      return logger.error(err);
+      logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 
@@ -102,7 +104,8 @@ export default class MemberController {
           accessToken,
         });
     } catch (err) {
-      return logger.error(err);
+      logger.error(err);
+      res.status(400).send('Bad Request');
     }
   };
 

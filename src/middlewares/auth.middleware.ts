@@ -1,11 +1,11 @@
 import { expressjwt } from 'express-jwt';
 import guardFactory from 'express-jwt-permissions';
 
-export const secured = (isTrue?: boolean) =>
+export const jwtToken = (bln?: boolean) =>
   expressjwt({
     secret: process.env.JWT_PRIVATE as string,
     algorithms: ['RS256'],
-    credentialsRequired: !isTrue || false, // to identify registered users while still providing access to unregistered users.
+    credentialsRequired: bln || false, // set:false to identify registered users while still providing access to unregistered users.
     requestProperty: 'user', // req.auth by default
   });
 
