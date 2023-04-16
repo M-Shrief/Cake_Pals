@@ -1,4 +1,4 @@
-import express, { Application, Request } from 'express';
+import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
 // config
 import { PORT, DB_URL, DB_NAME } from './config';
@@ -9,6 +9,8 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import errorMiddleware from './middlewares/error.middleware';
 import morganMiddleware from './middlewares/morgan.middleware';
+import rateLimit from 'express-rate-limit';
+// import { TokenGetter, expressjwt } from 'express-jwt';
 import setCache from './middlewares/cache.middleware';
 // Utils
 import { logger } from './utils/logger';
@@ -55,8 +57,21 @@ export default class App {
   }
 
   private initializeRoutes(routes: IRoute[]): void {
+    const apiLimiter = rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+      standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+      legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+      message: async (req: Request, res: Response) => {
+        res
+          .status(429) // too many request
+          .send('You can only make 100 requests every 15 minutes.');
+      },
+    });
+
+    // Apply the rate limiting middleware to API calls only
     routes.forEach((route) => {
-      this.app.use('/api', route.router);
+      this.app.use('/api', apiLimiter, route.router);
     });
   }
 
