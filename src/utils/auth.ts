@@ -1,4 +1,3 @@
-import fs from 'fs';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -7,13 +6,10 @@ export function hashPassword(password: string) {
   return bcrypt.hashSync(password, salt);
 }
 
-export function comparePassword(raw: string, hash: string) {
-  return bcrypt.compareSync(raw, hash);
-}
+export const comparePassword = (raw: string, hash: string) =>
+  bcrypt.compareSync(raw, hash);
 
 const privateKEY = process.env.JWT_PRIVATE as string;
-// const privateKEY = fs.readFileSync('/jwtRS256.key', 'utf8');
-// const publicKEY = fs.readFileSync('./jwtRS256.key.pub', 'utf8');
 
 export const createToken = async (user: any) => {
   const accessToken = jwt.sign(user, privateKEY, {

@@ -10,7 +10,6 @@ import compression from 'compression';
 import errorMiddleware from './middlewares/error.middleware';
 import morganMiddleware from './middlewares/morgan.middleware';
 import rateLimit from 'express-rate-limit';
-// import { TokenGetter, expressjwt } from 'express-jwt';
 import setCache from './middlewares/cache.middleware';
 // Utils
 import { logger } from './utils/logger';

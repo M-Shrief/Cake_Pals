@@ -52,6 +52,7 @@ export default class MemberController {
       )) as MemberType;
       const accessToken = await createToken({
         Name: `${newMember.firstName} ${newMember.lastName}`,
+        permissions: ['member:read', 'member:write'],
       });
       res.set('Authorization', `Bearer ${accessToken}`);
 
@@ -82,6 +83,7 @@ export default class MemberController {
 
       const accessToken = await createToken({
         Name: `${existingMember.firstName} ${existingMember.lastName}`,
+        permissions: ['member:read', 'member:write'],
       });
       res.set('Authorization', `Bearer ${accessToken}`);
 
