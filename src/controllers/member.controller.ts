@@ -53,6 +53,8 @@ export default class MemberController {
       const accessToken = await createToken({
         Name: `${newMember.firstName} ${newMember.lastName}`,
       });
+      res.set('Authorization', `Bearer ${accessToken}`);
+
       res
         .cookie('access-token', accessToken, {
           maxAge: 60 * 60 * 8, // 8hours
@@ -81,6 +83,7 @@ export default class MemberController {
       const accessToken = await createToken({
         Name: `${existingMember.firstName} ${existingMember.lastName}`,
       });
+      res.set('Authorization', `Bearer ${accessToken}`);
 
       res
         .cookie('access-token', accessToken, {
@@ -103,6 +106,7 @@ export default class MemberController {
 
   public logout = async (req: Request, res: Response, next: NextFunction) => {
     if (req.cookies['access-token']) {
+      res.set('Authorization', undefined);
       res
         .clearCookie('access-token')
         .status(200)

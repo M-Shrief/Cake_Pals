@@ -33,6 +33,7 @@ export default class BakerController {
         collectionTime: newBaker.collectionTime,
       });
 
+      res.set('Authorization', `Bearer ${accessToken}`);
       res
         .cookie('access-token', accessToken, {
           maxAge: 60 * 60 * 2, // 2hours
@@ -66,6 +67,7 @@ export default class BakerController {
         collectionTime: existingBaker.collectionTime,
       });
 
+      res.set('Authorization', `Bearer ${accessToken}`);
       res
         .cookie('access-token', accessToken, {
           maxAge: 60 * 60 * 2, // 2hours
@@ -89,6 +91,7 @@ export default class BakerController {
 
   public logout = async (req: Request, res: Response, next: NextFunction) => {
     if (req.cookies['access-token']) {
+      res.set('Authorization', undefined);
       res
         .clearCookie('access-token')
         .status(200)
