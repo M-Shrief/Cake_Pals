@@ -24,6 +24,10 @@ const orderSchema = new Schema({
     type: [] as Product[],
     required: true,
   },
+  paymentMethod: {
+    type: String,
+    required: true,
+  },
   // overallPrice: {
   //   type: Number,
   //   required: true,

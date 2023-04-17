@@ -2,9 +2,7 @@ import { logger } from '../utils/logger';
 // Models
 import Order from '../models/order.model';
 // Types
-import {} from '../interfaces/__types__';
 import OrderType from '../interfaces/order.interface';
-import { Logger } from 'winston';
 
 export default class OrderService {
   public async getOrders(): Promise<OrderType[]> {
@@ -16,6 +14,7 @@ export default class OrderService {
         customer: 1,
         products: 1,
         collectionTime: 1,
+        paymentMethod: 1,
         status: 1,
       }
     );
@@ -28,6 +27,7 @@ export default class OrderService {
       member: 1,
       customer: 1,
       products: 1,
+      paymentMethod: 1,
       collectionTime: 1,
       status: 1,
     })) as OrderType;
@@ -42,6 +42,7 @@ export default class OrderService {
         member: 1,
         customer: 1,
         products: 1,
+        paymentMethod: 1,
         collectionTime: 1,
         status: 1,
       }
@@ -58,6 +59,7 @@ export default class OrderService {
         member: orderData.member,
         products: orderData.products,
         collectionTime: orderData.collectionTime,
+        paymentMethod: orderData.paymentMethod,
       });
     } else {
       order = new Order({
@@ -65,6 +67,7 @@ export default class OrderService {
         baker: orderData.baker,
         customer: orderData.customer,
         products: orderData.products,
+        paymentMethod: orderData.paymentMethod,
         collectionTime: orderData.collectionTime,
       });
     }

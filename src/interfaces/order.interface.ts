@@ -6,6 +6,8 @@ export default interface OrderType {
   member: String;
   customer: Person;
   products: Product[];
+  // We'll assume that every baker provide these methods
+  paymentMethod: 'CASH' | 'CARD';
   // overallPrice: Number;
   // timeToBake: Time;
   collectionTime: Time;
