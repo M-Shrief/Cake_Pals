@@ -3,6 +3,7 @@ import { logger } from '../utils/logger';
 import Order from '../models/order.model';
 // Types
 import OrderType from '../interfaces/order.interface';
+import { getDuration } from '../utils/duration';
 
 export default class OrderService {
   public async getOrders(): Promise<OrderType[]> {
@@ -15,6 +16,8 @@ export default class OrderService {
         products: 1,
         collectionTime: 1,
         paymentMethod: 1,
+        timeToBake: 1,
+        overallPrice: 1,
         status: 1,
       }
     );
@@ -22,16 +25,18 @@ export default class OrderService {
   }
 
   public async getOrder(id: string): Promise<OrderType> {
-    const orders = (await Order.findById(id, {
+    const order = (await Order.findById(id, {
       baker: 1,
       member: 1,
       customer: 1,
       products: 1,
       paymentMethod: 1,
+      timeToBake: 1,
+      overallPrice: 1,
       collectionTime: 1,
       status: 1,
     })) as OrderType;
-    return orders;
+    return order;
   }
 
   public async getBakerOrders(id: string): Promise<OrderType[]> {
@@ -44,14 +49,31 @@ export default class OrderService {
         products: 1,
         paymentMethod: 1,
         collectionTime: 1,
+        timeToBake: 1,
+        overallPrice: 1,
         status: 1,
       }
     );
     return orders;
   }
 
-  public async createOrder(orderData: OrderType): Promise<OrderType> {
+  public async createOrder(orderData: OrderType) {
+    // : Promise<OrderType>
     let order;
+    const productsBakingTime = orderData.products.map(
+      (product) => product.bakingTime
+    );
+    const bakingHours = productsBakingTime.reduce(function (acc, time): number {
+      return acc + (time.hour as any);
+    }, 0);
+    const bakingMins = productsBakingTime.reduce(function (acc, time): number {
+      return acc + (time.minutes as any);
+    }, 0);
+    const overallPrice = orderData.products
+      .map((product) => product.price)
+      .reduce(function (acc, price): number {
+        return acc + (price as any);
+      }, 0);
     if (orderData.member) {
       order = new Order({
         status: 'On Hold',
@@ -60,6 +82,8 @@ export default class OrderService {
         products: orderData.products,
         collectionTime: orderData.collectionTime,
         paymentMethod: orderData.paymentMethod,
+        timeToBake: { hours: bakingHours, minutes: bakingMins },
+        overallPrice,
       });
     } else {
       order = new Order({
@@ -69,6 +93,8 @@ export default class OrderService {
         products: orderData.products,
         paymentMethod: orderData.paymentMethod,
         collectionTime: orderData.collectionTime,
+        timeToBake: { hours: bakingHours, minutes: bakingMins },
+        overallPrice,
       });
     }
     return await order.save();

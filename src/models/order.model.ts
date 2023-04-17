@@ -28,11 +28,11 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
-  // overallPrice: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // timeToBake: {} as Time,
+  overallPrice: {
+    type: Number,
+    required: true,
+  },
+  timeToBake: {} as Time,
   collectionTime: {
     type: {} as Time,
     required: true,
