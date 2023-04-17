@@ -3,12 +3,12 @@
 // make the calculation, then format it back to 24h convention.
 export interface Time {
   hour: {
-    type: Number;
+    type: number;
     min: 0;
     max: 24;
   };
   minutes: {
-    type: Number;
+    type: number;
     min: 0;
     max: 60;
   };
@@ -16,24 +16,24 @@ export interface Time {
 
 export interface Location {
   type: {
-    type: String;
+    type: string;
   };
-  coordinates: Number[];
+  coordinates: number[];
 }
 
 export interface Product {
-  baker: String;
-  name: String;
+  baker: string;
+  name: string;
   type: 'Sweets' | 'Salty';
-  imageURL?: String;
-  description: String;
+  imageURL?: string;
+  description: string;
   bakingTime: Time;
-  price: Number;
+  price: number;
 }
 
 export interface Person {
-  firstName: String;
-  lastName: String;
-  phone: String;
+  firstName: string;
+  lastName: string;
+  phone: string;
   location: Location;
 }
