@@ -2,16 +2,8 @@
 // So that we can split the string, then convert minutes to hours.
 // make the calculation, then format it back to 24h convention.
 export interface Time {
-  hour: {
-    type: number;
-    min: 0;
-    max: 24;
-  };
-  minutes: {
-    type: number;
-    min: 0;
-    max: 60;
-  };
+  hours: number;
+  minutes: number;
 }
 
 export interface Location {

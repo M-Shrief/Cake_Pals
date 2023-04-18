@@ -1,185 +1,344 @@
-[
-  {
-    "_id": {
-      "$oid": "6432da5579e87770da49563f"
-    },
-    "status": "Delivered",
-    "baker": {
-      "$oid": "6430181d83105ebe556ad149"
-    },
-    "customer": {
-      "name": "Der, The Customer",
-      "phone": "0120-354-5376"
-    },
-    "products": [
-      {
-        "name": "Sweet Potato Pie",
-        "price": 80,
-        "bakingTime": {
-          "hour": 1,
-          "minutes": 30
-        },
-        "type": "Sweets"
-      },
-      {
-        "name": "Meat Pie",
-        "price": 70,
-        "type": "Salty",
-        "bakingTime": {
-          "hour": 1,
-          "minutes": 0
-        }
-      }
-    ],
-    "collectionTime": {
-      "hour": 14,
-      "minutes": 30
-    },
-    "paymentMethod": "CASH",
-    "__v": 0
+[{
+  "_id": {
+    "$oid": "643e2aa6dabcd88c701db746"
   },
-  {
-    "_id": {
-      "$oid": "6433c6bcb44c3bf5e473333c"
-    },
-    "status": "On Hold",
-    "baker": {
-      "$oid": "6430183283105ebe556ad14b"
-    },
-    "member": {
-      "$oid": "6430170383105ebe556ad145"
-    },
-    "products": [
-      {
-        "name": "Sea food Pie",
-        "description": "A Pie filled with different types of Sea food to deliver the best meal.",
-        "price": 25,
-        "bakingTime": {
-          "hour": 0,
-          "minutes": 25
-        },
-        "type": "Salty"
-      },
-      {
-        "name": "Chocalate Cream Cake",
-        "description": "A Chocalate Cake filled with Cream.",
-        "price": 35,
-        "bakingTime": {
-          "hour": 0,
-          "minutes": 20
-        },
-        "type": "Sweets"
-      },
-      {
-        "baker": "6430183283105ebe556ad14b",
-        "name": "Golden Butter Cake",
-        "description": "A Sweet Golden Cake with Butter.",
-        "price": 20,
-        "bakingTime": {
-          "hour": 45,
-          "minutes": 0
-        },
-        "type": "Sweets"
-      }
-    ],
-    "collectionTime": {
-      "hour": 14,
-      "minutes": 30
-    },
-    "paymentMethod": "CARD",
-    "__v": 0
+  "status": "On Hold",
+  "baker": {
+    "$oid": "6430183283105ebe556ad14b"
   },
-  {
-    "_id": {
-      "$oid": "6433c71cb44c3bf5e473333e"
-    },
-    "status": "On Progress",
-    "baker": {
-      "$oid": "6430183283105ebe556ad14b"
-    },
-    "customer": {
-      "name": "Rai, The Customer",
-      "phone": "+20124-456-4654"
-    },
-    "products": [
-      {
-        "name": "Sea food Pie",
-        "description": "A Pie filled with different types of Sea food to deliver the best meal.",
-        "price": 25,
-        "bakingTime": {
-          "hour": 0,
-          "minutes": 25
-        },
-        "type": "Salty"
-      },
-      {
-        "name": "Chocalate Cream Cake",
-        "description": "A Chocalate Cake filled with Cream.",
-        "price": 35,
-        "bakingTime": {
-          "hour": 0,
-          "minutes": 20
-        },
-        "type": "Sweets"
-      },
-      {
-        "baker": "6430183283105ebe556ad14b",
-        "name": "Golden Butter Cake",
-        "description": "A Sweet Golden Cake with Butter.",
-        "price": 20,
-        "bakingTime": {
-          "hour": 45,
-          "minutes": 0
-        },
-        "type": "Sweets"
-      }
-    ],
-    "collectionTime": {
-      "hour": 18,
-      "minutes": 15
-    },
-    "paymentMethod": "CASH",
-    "__v": 0
+  "customer": {
+    "name": "Rai, The Customer",
+    "phone": "+20124-456-4654"
   },
-  {
-    "_id": {
-      "$oid": "64395421691219c5b1706398"
-    },
-    "status": "On Hold",
-    "baker": {
-      "$oid": "6430184783105ebe556ad14d"
-    },
-    "customer": {
-      "name": "War, The Customer",
-      "phone": "2014-456-4654"
-    },
-    "products": [
-      {
-        "name": "Sea food Pie",
-        "description": "A Pie filled with different types of Sea food to deliver the best meal.",
-        "price": 25,
-        "bakingTime": {
-          "hour": 0,
-          "minutes": 25
-        },
-        "type": "Salty"
+  "products": [
+    {
+      "name": "Sea food Pie",
+      "description": "A Pie filled with different types of Sea food to deliver the best meal.",
+      "price": 25,
+      "bakingTime": {
+        "hours": 0,
+        "minutes": 25
       },
-      {
-        "name": "Chocalate Cream Cake",
-        "description": "A Chocalate Cake filled with Cream.",
-        "price": 35,
-        "bakingTime": {
-          "hour": 0,
-          "minutes": 20
-        },
-        "type": "Sweets"
-      }
-    ],
-    "collectionTime": {
-      "hour": 15,
-      "minutes": 0
+      "type": "Salty"
     },
-    "paymentMethod": "CARD",
-    "__v": 0
-  }
-]
+    {
+      "name": "Chocalate Cream Cake",
+      "description": "A Chocalate Cake filled with Cream.",
+      "price": 35,
+      "bakingTime": {
+        "hours": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": "6430183283105ebe556ad14b",
+      "name": "Golden Butter Cake",
+      "description": "A Sweet Golden Cake with Butter.",
+      "price": 20,
+      "bakingTime": {
+        "hours": 0,
+        "minutes": 45
+      },
+      "type": "Sweets"
+    }
+  ],
+  "paymentMethod": "CASH",
+  "overallPrice": 80,
+  "timeToBake": {
+    "hours": 1,
+    "minutes": 30
+  },
+  "collectionTime": {
+    "hours": 18,
+    "minutes": 15
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681795750632"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681799119155"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e2c5952a04eb4bc565e9c"
+  },
+  "status": "On Hold",
+  "baker": {
+    "$oid": "6430183283105ebe556ad14b"
+  },
+  "member": {
+    "$oid": "6430170383105ebe556ad145"
+  },
+  "products": [
+    {
+      "name": "Sea food Pie",
+      "description": "A Pie filled with different types of Sea food to deliver the best meal.",
+      "price": 25,
+      "bakingTime": {
+        "hours": 0,
+        "minutes": 25
+      },
+      "type": "Salty"
+    },
+    {
+      "name": "Chocalate Cream Cake",
+      "description": "A Chocalate Cake filled with Cream.",
+      "price": 35,
+      "bakingTime": {
+        "hours": 0,
+        "minutes": 20
+      },
+      "type": "Sweets"
+    },
+    {
+      "baker": "6430183283105ebe556ad14b",
+      "name": "Golden Butter Cake",
+      "description": "A Sweet Golden Cake with Butter.",
+      "price": 20,
+      "bakingTime": {
+        "hours": 0,
+        "minutes": 45
+      },
+      "type": "Sweets"
+    }
+  ],
+  "paymentMethod": "CARD",
+  "overallPrice": 80,
+  "timeToBake": {
+    "hours": 1,
+    "minutes": 30
+  },
+  "collectionTime": {
+    "hours": 14,
+    "minutes": 30
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681796185281"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681799145919"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e2c7d52a04eb4bc565e9e"
+  },
+  "status": "On Hold",
+  "baker": {
+    "$oid": "6430184783105ebe556ad14d"
+  },
+  "customer": {
+    "name": "War, The Customer",
+    "phone": "2014-456-4654"
+  },
+  "products": [
+    {
+      "name": "Sweet Potato Pie",
+      "price": 80,
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 30
+      },
+      "type": "Sweets"
+    },
+    {
+      "name": "Meat Pie",
+      "price": 70,
+      "type": "Salty",
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 0
+      }
+    }
+  ],
+  "paymentMethod": "CASH",
+  "overallPrice": 60,
+  "timeToBake": {
+    "hours": 2,
+    "minutes": 30
+  },
+  "collectionTime": {
+    "hours": 15,
+    "minutes": 0
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681796221241"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681799163156"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e2ca952a04eb4bc565ea0"
+  },
+  "status": "On Hold",
+  "baker": {
+    "$oid": "6430181d83105ebe556ad149"
+  },
+  "customer": {
+    "name": "Der, The Customer",
+    "phone": "0120-354-5376"
+  },
+  "products": [
+    {
+      "name": "Sweet Potato Pie",
+      "price": 80,
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 30
+      },
+      "type": "Sweets"
+    },
+    {
+      "name": "Meat Pie",
+      "price": 70,
+      "type": "Salty",
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 0
+      }
+    }
+  ],
+  "paymentMethod": "CARD",
+  "overallPrice": 150,
+  "timeToBake": {
+    "hours": 2,
+    "minutes": 30
+  },
+  "collectionTime": {
+    "hours": 16,
+    "minutes": 30
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681796265295"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681799180477"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e2cbf52a04eb4bc565ea2"
+  },
+  "status": "On Hold",
+  "baker": {
+    "$oid": "6430181d83105ebe556ad149"
+  },
+  "customer": {
+    "name": "Der, The Customer",
+    "phone": "0120-354-5376"
+  },
+  "products": [
+    {
+      "name": "Sweet Potato Pie",
+      "price": 80,
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 30
+      },
+      "type": "Sweets"
+    },
+    {
+      "name": "Meat Pie",
+      "price": 70,
+      "type": "Salty",
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 0
+      }
+    }
+  ],
+  "paymentMethod": "CASH",
+  "overallPrice": 150,
+  "timeToBake": {
+    "hours": 2,
+    "minutes": 30
+  },
+  "collectionTime": {
+    "hours": 20,
+    "minutes": 30
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681796287654"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681799282961"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e2ccf52a04eb4bc565ea4"
+  },
+  "status": "On Hold",
+  "baker": {
+    "$oid": "6430181d83105ebe556ad149"
+  },
+  "customer": {
+    "name": "Der, The Customer",
+    "phone": "0120-354-5376"
+  },
+  "products": [
+    {
+      "name": "Sweet Potato Pie",
+      "price": 80,
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 30
+      },
+      "type": "Sweets"
+    },
+    {
+      "name": "Meat Pie",
+      "price": 70,
+      "type": "Salty",
+      "bakingTime": {
+        "hours": 1,
+        "minutes": 0
+      }
+    }
+  ],
+  "paymentMethod": "CARD",
+  "overallPrice": 150,
+  "timeToBake": {
+    "hours": 2,
+    "minutes": 30
+  },
+  "collectionTime": {
+    "hours": 11,
+    "minutes": 30
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1681796303887"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1681799297568"
+    }
+  },
+  "__v": 0
+}]
