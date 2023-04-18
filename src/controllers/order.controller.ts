@@ -20,14 +20,25 @@ export default class OrderController {
       .catch((err) => logger.error(err));
   };
 
-  public getBakerOrders = (req: Request, res: Response, next: NextFunction) => {
+  public BakerOrders = (req: Request, res: Response, next: NextFunction) => {
     this.orderService
       .getBakerOrders(req.params.baker)
       .then((result) => res.status(200).send(result))
       .catch((err) => logger.error(err));
   };
 
-  public createOrder = (req: Request, res: Response, next: NextFunction) => {
+  public MemberOrders = (req: Request, res: Response, next: NextFunction) => {
+    this.orderService
+      .getMemberOrders(req.params.member)
+      .then((result) => res.status(200).send(result))
+      .catch((err) => logger.error(err));
+  };
+
+  public createOrder = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     this.orderService
       .createOrder(req.body)
       .then((newOrder) => {
@@ -36,7 +47,10 @@ export default class OrderController {
           Order: newOrder,
         });
       })
-      .catch((err) => logger.error(err));
+      .catch((err) => {
+        logger.error(err);
+        res.json(err);
+      });
   };
 
   public editOrder = async (

@@ -1,14 +1,29 @@
 import { logger } from '../utils/logger';
+import { Logger } from 'winston';
 // Models
 import Order from '../models/order.model';
 // Types
 import OrderType from '../interfaces/order.interface';
-import { getDuration } from '../utils/duration';
-
+import { Time } from '../interfaces/__types__';
+import { ConfigType, Dayjs } from 'dayjs';
+// Utils
+import {
+  now,
+  subtract,
+  isSameDay,
+  difference,
+  format,
+  add,
+  getDuration,
+  addDuration,
+} from '../utils/duration';
 export default class OrderService {
   public async getOrders(): Promise<OrderType[]> {
     const orders = await Order.find(
-      {},
+      {
+        // get Today's Orders only
+        createdAt: { $gt: subtract(now, 1, 'd') },
+      },
       {
         baker: 1,
         member: 1,
@@ -35,13 +50,14 @@ export default class OrderService {
       overallPrice: 1,
       collectionTime: 1,
       status: 1,
+      createdAt: 1,
     })) as OrderType;
     return order;
   }
 
   public async getBakerOrders(id: string): Promise<OrderType[]> {
     const orders = await Order.find(
-      { baker: id },
+      { baker: id, createdAt: { $gt: subtract(now, 1, 'd') } },
       {
         baker: 1,
         member: 1,
@@ -57,22 +73,86 @@ export default class OrderService {
     return orders;
   }
 
-  public async createOrder(orderData: OrderType) {
-    // : Promise<OrderType>
-    let order;
-    const productsBakingTime = orderData.products.map(
-      (product) => product.bakingTime
+  public async getMemberOrders(id: string): Promise<OrderType[]> {
+    const orders = await Order.find(
+      { member: id, createdAt: { $gt: subtract(now, 1, 'd') } },
+      {
+        baker: 1,
+        member: 1,
+        customer: 1,
+        products: 1,
+        paymentMethod: 1,
+        collectionTime: 1,
+        timeToBake: 1,
+        overallPrice: 1,
+        status: 1,
+      }
     );
-    const bakingHours = productsBakingTime.reduce(function (acc, time): number {
-      return acc + (time.hour as any);
-    }, 0);
-    const bakingMins = productsBakingTime.reduce(function (acc, time): number {
-      return acc + (time.minutes as any);
-    }, 0);
+    return orders;
+  }
+
+  private async bakerIsBooked(
+    id: string,
+    timeToBake: Time,
+    collectionTime: Time
+  ) {
+    // getting total bakingTime for bakerOrders(on hold/progress)
+    const todayOrders = await Order.find(
+      {
+        baker: id,
+        createdAt: { $gt: subtract(now, 1, 'd') },
+        status: 'On Hold' || 'On Progress',
+        collectionTime: { $lt: collectionTime },
+      },
+      { timeToBake: 1 }
+    );
+    const todayBakingTime = todayOrders
+      .map((todayOrder) => todayOrder.timeToBake)
+      .reduce(
+        (acc, bakingTime) => {
+          return (acc = addDuration(acc, bakingTime));
+        },
+        { hours: 0, minutes: 0 }
+      );
+
+    // Assuming the average baker to work <= 12 hours
+    // we will see if his freeTime(in hours) <= 12
+    // then he is booked, then return a boolean value
+    const bookedHours = difference(
+      collectionTime,
+      addDuration(todayBakingTime, timeToBake),
+      'hours'
+    );
+    const isBooked = bookedHours <= 12;
+    return isBooked;
+  }
+
+  public async createOrder(orderData: OrderType): Promise<OrderType | Logger> {
+    let order;
+
+    // Calculating products' bakingTime, and calculate timeToBake
+    const timeToBake = orderData.products
+      .map((product) => product.bakingTime)
+      .reduce(
+        (acc, bakingTime) => {
+          return (acc = addDuration(acc, bakingTime));
+        },
+        { hours: 0, minutes: 0 }
+      );
+
+    if (
+      await this.bakerIsBooked(
+        orderData.baker,
+        timeToBake,
+        orderData.collectionTime
+      )
+    ) {
+      return logger.error('Already Booked');
+    }
     const overallPrice = orderData.products
       .map((product) => product.price)
       .reduce(function (acc, price): number {
-        return acc + (price as any);
+        return acc + price;
       }, 0);
     if (orderData.member) {
       order = new Order({
@@ -82,7 +162,7 @@ export default class OrderService {
         products: orderData.products,
         collectionTime: orderData.collectionTime,
         paymentMethod: orderData.paymentMethod,
-        timeToBake: { hours: bakingHours, minutes: bakingMins },
+        timeToBake,
         overallPrice,
       });
     } else {
@@ -93,10 +173,11 @@ export default class OrderService {
         products: orderData.products,
         paymentMethod: orderData.paymentMethod,
         collectionTime: orderData.collectionTime,
-        timeToBake: { hours: bakingHours, minutes: bakingMins },
+        timeToBake,
         overallPrice,
       });
     }
+    // return order;
     return await order.save();
   }
 

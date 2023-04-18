@@ -17,13 +17,21 @@ class OrderRoute implements IRoute {
   private initializeRoutes() {
     this.router.get(
       '/orders',
-      [jwtToken(true), guard.check('admin')],
+      // [jwtToken(true), guard.check('admin')],
       this.controller.index
     );
     this.router.get(
       '/orders/baker/:baker',
       [jwtToken(true), guard.check([['admin'], ['baker:read', 'baker:write']])],
-      this.controller.getBakerOrders
+      this.controller.BakerOrders
+    );
+    this.router.get(
+      '/orders/member/:member',
+      [
+        jwtToken(true),
+        guard.check([['admin'], ['member:read', 'member:write']]),
+      ],
+      this.controller.MemberOrders
     );
     this.router.get(
       '/order/:id',
