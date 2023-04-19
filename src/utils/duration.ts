@@ -1,4 +1,3 @@
-// npx ts-node src/utils/duration.ts
 import dayjs, { Dayjs, ConfigType, ManipulateType } from "dayjs";
 import duration, { DurationUnitType } from "dayjs/plugin/duration";
 import objectSupport from "dayjs/plugin/objectSupport";

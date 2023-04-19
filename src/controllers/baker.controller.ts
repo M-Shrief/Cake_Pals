@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
-import { logger } from '../utils/logger';
-import { createToken } from '../utils/auth';
+import { NextFunction, Request, Response } from "express";
+import { logger } from "../utils/logger";
+import { createToken } from "../utils/auth";
 // Services
-import BakerService from '../services/baker.service';
+import BakerService from "../services/baker.service";
 // Types
-import BakerType from '../interfaces/baker.interface';
+import BakerType from "../interfaces/baker.interface";
 export default class BakerController {
   private bakerServices: BakerService = new BakerService();
 
@@ -29,18 +29,18 @@ export default class BakerController {
       )) as BakerType;
       const accessToken = await createToken({
         Name: `${newBaker.firstName} ${newBaker.lastName}`,
-        permissions: ['baker:read', 'baker:write'],
+        permissions: ["baker:read", "baker:write"],
         rating: newBaker.rating,
         collectionTime: newBaker.collectionTime,
       });
 
-      res.set('Authorization', `Bearer ${accessToken}`);
+      res.set("Authorization", `Bearer ${accessToken}`);
       res
-        .cookie('access-token', accessToken, {
+        .cookie("access-token", accessToken, {
           maxAge: 60 * 60 * 2, // 2hours
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
         })
         .status(201)
         .json({
@@ -53,7 +53,7 @@ export default class BakerController {
         });
     } catch (err) {
       logger.error(err);
-      res.status(400).send('Bad Request');
+      res.status(400).send("Bad Request");
     }
   };
 
@@ -65,18 +65,18 @@ export default class BakerController {
 
       const accessToken = await createToken({
         Name: `${existingBaker.firstName} ${existingBaker.lastName}`,
-        permissions: ['baker:read', 'baker:write'],
+        permissions: ["baker:read", "baker:write"],
         rating: existingBaker.rating,
         collectionTime: existingBaker.collectionTime,
       });
 
-      res.set('Authorization', `Bearer ${accessToken}`);
+      res.set("Authorization", `Bearer ${accessToken}`);
       res
-        .cookie('access-token', accessToken, {
+        .cookie("access-token", accessToken, {
           maxAge: 60 * 60 * 2, // 2hours
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
         })
         .status(200)
         .json({
@@ -89,17 +89,17 @@ export default class BakerController {
         });
     } catch (err) {
       logger.error(err);
-      res.status(400).send('Bad Request');
+      res.status(400).send("Bad Request");
     }
   };
 
   public logout = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.cookies['access-token']) {
-      res.set('Authorization', undefined);
+    if (req.cookies["access-token"]) {
+      res.set("Authorization", undefined);
       res
-        .clearCookie('access-token')
+        .clearCookie("access-token")
         .status(200)
-        .json({ message: 'Logged Out!' });
+        .json({ message: "Logged Out!" });
     }
   };
 
@@ -118,7 +118,7 @@ export default class BakerController {
   public remove = async (req: Request, res: Response, next: NextFunction) => {
     this.bakerServices
       .remove(req.params.id)
-      .then(() => res.send('Deleted Successfully'))
+      .then(() => res.status(200).send("Deleted Successfully"))
       .catch((err) => logger.error(err));
   };
 
@@ -141,7 +141,7 @@ export default class BakerController {
       res.status(200).send(products);
     } catch (err) {
       logger.error(err);
-      res.status(400).send('Bad Request');
+      res.status(400).send("Bad Request");
     }
   };
 
@@ -159,7 +159,7 @@ export default class BakerController {
       res.status(200).send(products);
     } catch (err) {
       logger.error(err);
-      res.status(400).send('Bad Request');
+      res.status(400).send("Bad Request");
     }
   };
 
@@ -190,6 +190,7 @@ export default class BakerController {
       .then((updatedProduct) => {
         return res.status(201).json({
           success: true,
+          Baker: req.params.id,
           Products: updatedProduct,
         });
       })
@@ -205,8 +206,8 @@ export default class BakerController {
       .removeProduct(req.params.id, Number(req.params.index))
       .then(() => {
         return res
-          .status(201)
-          .json({ Product_Number: req.params.index, state: 'Deleted' });
+          .status(200)
+          .json({ Product_Number: req.params.index, state: "Deleted" });
       })
       .catch((err) => logger.error(err));
   };

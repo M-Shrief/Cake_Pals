@@ -1,5 +1,6 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { JWT_PRIVATE } from "../config";
 
 export function hashPassword(password: string) {
   const salt = bcrypt.genSaltSync(); // default 10
@@ -9,12 +10,12 @@ export function hashPassword(password: string) {
 export const comparePassword = (raw: string, hash: string) =>
   bcrypt.compareSync(raw, hash);
 
-const privateKEY = process.env.JWT_PRIVATE as string;
+const privateKEY = JWT_PRIVATE as string;
 
 export const createToken = async (user: any) => {
   const accessToken = jwt.sign(user, privateKEY, {
-    expiresIn: '2h',
-    algorithm: 'RS256',
+    // expiresIn: "2h",
+    algorithm: "RS256",
     // issuer: Domain,
   });
   return accessToken;
@@ -28,7 +29,7 @@ export const verifyToken = (token: string) => {
   const decoded = jwt.verify(
     token,
     privateKEY,
-    { algorithms: ['RS256'] }
+    { algorithms: ["RS256"] }
     // function (err, payload) {
     // if token alg != RS256,  return err == invalid signature
     // }

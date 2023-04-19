@@ -1,28 +1,19 @@
-import { logger } from '../utils/logger';
-import { Logger } from 'winston';
+import { logger } from "../utils/logger";
+import { Logger } from "winston";
 // Models
-import Order from '../models/order.model';
+import Order from "../models/order.model";
 // Types
-import OrderType from '../interfaces/order.interface';
-import { Time } from '../interfaces/__types__';
-import { ConfigType, Dayjs } from 'dayjs';
+import OrderType from "../interfaces/order.interface";
+import { Time } from "../interfaces/__types__";
+import { ConfigType, Dayjs } from "dayjs";
 // Utils
-import {
-  now,
-  subtract,
-  isSameDay,
-  difference,
-  format,
-  add,
-  getDuration,
-  addDuration,
-} from '../utils/duration';
+import { now, subtract, difference, addDuration } from "../utils/duration";
 export default class OrderService {
   public async getOrders(): Promise<OrderType[]> {
     const orders = await Order.find(
       {
         // get Today's Orders only
-        createdAt: { $gt: subtract(now, 1, 'd') },
+        createdAt: { $gt: subtract(now, 1, "d") },
       },
       {
         baker: 1,
@@ -57,7 +48,7 @@ export default class OrderService {
 
   public async getBakerOrders(id: string): Promise<OrderType[]> {
     const orders = await Order.find(
-      { baker: id, createdAt: { $gt: subtract(now, 1, 'd') } },
+      { baker: id, createdAt: { $gt: subtract(now, 1, "d") } },
       {
         baker: 1,
         member: 1,
@@ -75,7 +66,7 @@ export default class OrderService {
 
   public async getMemberOrders(id: string): Promise<OrderType[]> {
     const orders = await Order.find(
-      { member: id, createdAt: { $gt: subtract(now, 1, 'd') } },
+      { member: id, createdAt: { $gt: subtract(now, 1, "d") } },
       {
         baker: 1,
         member: 1,
@@ -100,8 +91,8 @@ export default class OrderService {
     const todayOrders = await Order.find(
       {
         baker: id,
-        createdAt: { $gt: subtract(now, 1, 'd') },
-        status: 'On Hold' || 'On Progress',
+        createdAt: { $gt: subtract(now, 1, "d") },
+        status: "On Hold" || "On Progress",
         collectionTime: { $lt: collectionTime },
       },
       { timeToBake: 1 }
@@ -121,7 +112,7 @@ export default class OrderService {
     const bookedHours = difference(
       collectionTime,
       addDuration(todayBakingTime, timeToBake),
-      'hours'
+      "hours"
     );
     const isBooked = bookedHours <= 12;
     return isBooked;
@@ -147,7 +138,7 @@ export default class OrderService {
         orderData.collectionTime
       )
     ) {
-      return logger.error('Already Booked');
+      return logger.error("Already Booked");
     }
     const overallPrice = orderData.products
       .map((product) => product.price)
@@ -156,7 +147,7 @@ export default class OrderService {
       }, 0);
     if (orderData.member) {
       order = new Order({
-        status: 'On Hold',
+        status: "On Hold",
         baker: orderData.baker,
         member: orderData.member,
         products: orderData.products,
@@ -167,7 +158,7 @@ export default class OrderService {
       });
     } else {
       order = new Order({
-        status: 'On Hold',
+        status: "On Hold",
         baker: orderData.baker,
         customer: orderData.customer,
         products: orderData.products,
@@ -189,7 +180,7 @@ export default class OrderService {
     if (order) {
       return order.updateOne({ $set: orderData });
     } else {
-      logger.error('No Order Found');
+      logger.error("No Order Found");
     }
   }
 

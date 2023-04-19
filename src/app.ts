@@ -1,20 +1,20 @@
-import express, { Application, Request, Response } from 'express';
-import mongoose from 'mongoose';
+import express, { Application, Request, Response } from "express";
+import mongoose from "mongoose";
 // config
-import { PORT, DB_URL, DB_NAME } from './config';
+import { PORT, DB_URL, DB_NAME, DB_TEST_NAME, NODE_ENV } from "./config";
 // Middlewares
-import cors from 'cors';
-import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
-import errorMiddleware from './middlewares/error.middleware';
-import morganMiddleware from './middlewares/morgan.middleware';
-import rateLimit from 'express-rate-limit';
-import setCache from './middlewares/cache.middleware';
+import cors from "cors";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import compression from "compression";
+import errorMiddleware from "./middlewares/error.middleware";
+import morganMiddleware from "./middlewares/morgan.middleware";
+import rateLimit from "express-rate-limit";
+import setCache from "./middlewares/cache.middleware";
 // Utils
-import { logger } from './utils/logger';
+import { logger } from "./utils/logger";
 // interfaces
-import { IRoute } from './interfaces/route.interface';
+import { IRoute } from "./interfaces/route.interface";
 
 export default class App {
   public app: Application;
@@ -24,7 +24,11 @@ export default class App {
     this.app = express();
     this.port = PORT || 3000;
     this.initializeMiddlewares();
-    this.connectToDB(DB_URL as string, DB_NAME as string);
+    if (NODE_ENV == "development") {
+      this.connectToDB(DB_URL as string, DB_NAME as string);
+    } else if (NODE_ENV == "test") {
+      this.connectToDB(DB_URL as string, DB_TEST_NAME as string);
+    }
     this.initializeRoutes(routes);
     this.initializeErrorHandling();
   }
@@ -46,9 +50,9 @@ export default class App {
     this.app.use(setCache);
     this.app.use(
       cors<Request>({
-        origin: 'http://localhost:3000',
-        methods: ['GET'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        origin: "http://localhost:3000",
+        methods: ["GET"],
+        allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
       })
     );
@@ -64,13 +68,13 @@ export default class App {
       message: async (req: Request, res: Response) => {
         res
           .status(429) // too many request
-          .send('You can only make 100 requests every 15 minutes.');
+          .send("You can only make 100 requests every 15 minutes.");
       },
     });
 
     // Apply the rate limiting middleware to API calls only
     routes.forEach((route) => {
-      this.app.use('/api', apiLimiter, route.router);
+      this.app.use("/api", apiLimiter, route.router);
     });
   }
 

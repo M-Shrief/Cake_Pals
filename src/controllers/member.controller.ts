@@ -1,15 +1,13 @@
-import { NextFunction, Request, Response } from 'express';
-import { logger } from '../utils/logger';
-import { createToken } from '../utils/auth';
+import { NextFunction, Request, Response } from "express";
+import { logger } from "../utils/logger";
+import { createToken } from "../utils/auth";
 // Services
-import MemberService from '../services/member.service';
-import BakerService from '../services/baker.service';
+import MemberService from "../services/member.service";
 // Types
-import MemberType from '../interfaces/member.interface';
+import MemberType from "../interfaces/member.interface";
 
 export default class MemberController {
   private memberService = new MemberService();
-  private bakerService = new BakerService();
 
   public index = (req: Request, res: Response, next: NextFunction) => {
     this.memberService
@@ -25,27 +23,6 @@ export default class MemberController {
       .catch((err) => logger.error(`ERROR: ${err}`));
   };
 
-  public getNearBakers = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    try {
-      const member = await this.memberService.getMember(req.params.id);
-      const distance = Number(req.params.distance);
-      if (member && distance > -1) {
-        const nearBakers = await this.bakerService.getBakers(
-          member.location,
-          distance
-        );
-        return res.status(200).send(nearBakers);
-      }
-    } catch (err) {
-      logger.error(err);
-      res.status(400).send('Bad Request');
-    }
-  };
-
   public signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const newMember = (await this.memberService.createMember(
@@ -53,16 +30,16 @@ export default class MemberController {
       )) as MemberType;
       const accessToken = await createToken({
         Name: `${newMember.firstName} ${newMember.lastName}`,
-        permissions: ['member:read', 'member:write'],
+        permissions: ["member:read", "member:write"],
       });
-      res.set('Authorization', `Bearer ${accessToken}`);
+      res.set("Authorization", `Bearer ${accessToken}`);
 
       res
-        .cookie('access-token', accessToken, {
+        .cookie("access-token", accessToken, {
           maxAge: 60 * 60 * 8, // 8hours
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
         })
         .status(201)
         .json({
@@ -73,7 +50,7 @@ export default class MemberController {
         });
     } catch (err) {
       logger.error(err);
-      res.status(400).send('Bad Request');
+      res.status(400).send("Bad Request");
     }
   };
 
@@ -85,16 +62,16 @@ export default class MemberController {
 
       const accessToken = await createToken({
         Name: `${existingMember.firstName} ${existingMember.lastName}`,
-        permissions: ['member:read', 'member:write'],
+        permissions: ["member:read", "member:write"],
       });
-      res.set('Authorization', `Bearer ${accessToken}`);
+      res.set("Authorization", `Bearer ${accessToken}`);
 
       res
-        .cookie('access-token', accessToken, {
+        .cookie("access-token", accessToken, {
           maxAge: 60 * 60 * 2, //2 hours,
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
         })
         .status(200)
         .json({
@@ -105,17 +82,17 @@ export default class MemberController {
         });
     } catch (err) {
       logger.error(err);
-      res.status(400).send('Bad Request');
+      res.status(400).send("Bad Request");
     }
   };
 
   public logout = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.cookies['access-token']) {
-      res.set('Authorization', undefined);
+    if (req.cookies["access-token"]) {
+      res.set("Authorization", undefined);
       res
-        .clearCookie('access-token')
+        .clearCookie("access-token")
         .status(200)
-        .json({ message: 'Logged Out!' });
+        .json({ message: "Logged Out!" });
     }
   };
 
@@ -134,7 +111,7 @@ export default class MemberController {
   public remove = (req: Request, res: Response, next: NextFunction) => {
     this.memberService
       .remove(req.params.id)
-      .then(() => res.send('Deleted Successfully'))
+      .then(() => res.send("Deleted Successfully"))
       .catch((err) => logger.error(err));
   };
 }
