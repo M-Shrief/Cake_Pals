@@ -1,12 +1,12 @@
-import { expressjwt } from 'express-jwt';
-import guardFactory from 'express-jwt-permissions';
+import { expressjwt } from "express-jwt";
+import guardFactory from "express-jwt-permissions";
 
 export const jwtToken = (bln?: boolean) =>
   expressjwt({
     secret: process.env.JWT_PRIVATE as string,
-    algorithms: ['RS256'],
-    credentialsRequired: bln || false, // set:false to identify registered users while still providing access to unregistered users.
-    requestProperty: 'user', // req.auth by default
+    algorithms: ["RS256"],
+    credentialsRequired: bln ?? false, // set:false to identify registered users while still providing access to unregistered users.
+    requestProperty: "user", // req.auth by default
   });
 
 export const guard = guardFactory();

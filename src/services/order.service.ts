@@ -5,7 +5,6 @@ import Order from "../models/order.model";
 // Types
 import OrderType from "../interfaces/order.interface";
 import { Time } from "../interfaces/__types__";
-import { ConfigType, Dayjs } from "dayjs";
 // Utils
 import { now, subtract, difference, addDuration } from "../utils/duration";
 export default class OrderService {
@@ -168,7 +167,7 @@ export default class OrderService {
         overallPrice,
       });
     }
-    // return order;
+
     return await order.save();
   }
 

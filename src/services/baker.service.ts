@@ -1,10 +1,10 @@
-import { comparePassword, hashPassword } from '../utils/auth';
-import { logger } from '../utils/logger';
+import { comparePassword, hashPassword } from "../utils/auth";
+import { logger } from "../utils/logger";
 // Models
-import Baker from '../models/baker.model';
+import Baker from "../models/baker.model";
 // Types
-import { Location, Product } from '../interfaces/__types__';
-import BakerType from '../interfaces/baker.interface';
+import { Location, Product } from "../interfaces/__types__";
+import BakerType from "../interfaces/baker.interface";
 
 export default class BakerService {
   public async getBakers(
@@ -75,14 +75,14 @@ export default class BakerService {
         { firstName: 1, lastName: 1, rating: 1, collectionTime: 1, password: 1 }
       );
 
-      if (!existingBaker) return console.error('Invalid Data');
+      if (!existingBaker) return console.error("Invalid Data");
 
       const isValid = comparePassword(
         password as string,
         existingBaker.password as string
       );
 
-      if (!isValid) return console.error('Invalid Data');
+      if (!isValid) return console.error("Invalid Data");
 
       return existingBaker;
     } catch (err) {
@@ -115,7 +115,7 @@ export default class BakerService {
 
   public async getBakersProducts(
     bakers: BakerType[],
-    type?: 'Sweets' | 'Salty'
+    type?: "Sweets" | "Salty"
   ): Promise<Product[]> {
     let products = [] as Product[];
     // we access in order: allBakers' Products -> Baker's Products -> individual Product in Product[]
@@ -139,7 +139,7 @@ export default class BakerService {
 
   public async getBakerProducts(
     baker: BakerType,
-    type?: 'Sweets' | 'Salty'
+    type?: "Sweets" | "Salty"
   ): Promise<Product[]> {
     let products = baker.products as Product[];
     // To filter by type if provided in req.body
