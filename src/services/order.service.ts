@@ -105,6 +105,7 @@ export default class OrderService {
         { hours: 0, minutes: 0 }
       );
 
+    // Bakers can have intersected collectionTime.
     // Assuming the average baker to work <= 12 hours
     // we will see if his alreadyBook + newOrderBakingTime <= 12
     // then he is booked, then return a boolean value
