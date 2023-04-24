@@ -1,12 +1,12 @@
-import { logger } from "../utils/logger";
-import { Logger } from "winston";
 // Models
 import Order from "../models/order.model";
 // Types
 import OrderType from "../interfaces/order.interface";
 import { Time } from "../interfaces/__types__";
+import { Logger } from "winston";
 // Utils
 import { now, subtract, difference, addDuration } from "../utils/duration";
+import { logger } from "../utils/logger";
 export default class OrderService {
   public async getOrders(): Promise<OrderType[]> {
     const orders = await Order.find(
@@ -69,7 +69,6 @@ export default class OrderService {
       {
         baker: 1,
         member: 1,
-        customer: 1,
         products: 1,
         paymentMethod: 1,
         collectionTime: 1,
@@ -107,14 +106,14 @@ export default class OrderService {
 
     // Bakers can have intersected collectionTime.
     // Assuming the average baker to work <= 12 hours
-    // we will see if his alreadyBook + newOrderBakingTime <= 12
-    // then he is booked, then return a boolean value
+    // we will see if his alreadyBook + newOrderBakingTime >= 12
+    // if yes then he is booked, and return a boolean value
     const bookedHours = difference(
       collectionTime,
       addDuration(todayBakingTime, timeToBake),
       "hours"
     );
-    const isBooked = bookedHours <= 12;
+    const isBooked = bookedHours >= 12;
     return isBooked;
   }
 

@@ -118,7 +118,7 @@ export default class BakerService {
     type?: "Sweets" | "Salty"
   ): Promise<Product[]> {
     let products = [] as Product[];
-    // we access in order: allBakers' Products -> Baker's Products -> individual Product in Product[]
+    // we access orders: allBakers' Products -> Baker's Products -> individual Product in Product[]
     const bakersProducts = bakers.map((baker) => baker.products);
     bakersProducts.forEach((bakerProducts) => {
       if (bakerProducts.length) {

@@ -1,9 +1,10 @@
-import { comparePassword, hashPassword } from '../utils/auth';
-import { logger } from '../utils/logger';
+import { comparePassword, hashPassword } from "../utils/auth";
+// utils
+import { logger } from "../utils/logger";
 // Model
-import Member from '../models/member.model';
+import Member from "../models/member.model";
 // Types
-import MemberType from '../interfaces/member.interface';
+import MemberType from "../interfaces/member.interface";
 
 export default class MemberService {
   public async getMembers(): Promise<MemberType[]> {
@@ -45,14 +46,14 @@ export default class MemberService {
         { firstName: 1, lastName: 1, rating: 1, collectionTime: 1, password: 1 }
       );
 
-      if (!existingMember) return console.error('Invalid Data');
+      if (!existingMember) return console.error("Invalid Data");
 
       const isValid = comparePassword(
         password as string,
         existingMember.password as string
       );
 
-      if (!isValid) return console.error('Invalid Data');
+      if (!isValid) return console.error("Invalid Data");
 
       return existingMember;
     } catch (err) {
