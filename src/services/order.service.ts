@@ -120,7 +120,7 @@ export default class OrderService {
   public async createOrder(orderData: OrderType): Promise<OrderType | Logger> {
     let order;
 
-    // Calculating products' bakingTime, and calculate timeToBake
+    // getting products' bakingTime, and calculate timeToBake
     const timeToBake = orderData.products
       .map((product) => product.bakingTime)
       .reduce(
