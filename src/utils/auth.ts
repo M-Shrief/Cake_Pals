@@ -14,7 +14,7 @@ const privateKEY = JWT_PRIVATE as string;
 
 export const createToken = async (user: any) => {
   const accessToken = jwt.sign(user, privateKEY, {
-    // expiresIn: "2h",
+    expiresIn: "2h",
     algorithm: "RS256",
     // issuer: Domain,
   });
